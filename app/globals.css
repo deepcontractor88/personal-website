@@ -1,0 +1,438 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   CSS Custom Properties - Light (default) & Dark mode
+   ================================================================ */
+
+:root {
+  --db-sidebar-w: 56px;
+  --db-header-h: 56px;
+
+  /* Light palette */
+  --db-bg: #f9f9f9;
+  --db-white: #ffffff;
+  --db-blue: #1b73e8;
+  --db-blue-hover: #1557b0;
+  --db-border: #e0e0e0;
+  --db-border-dark: #ccc;
+  --db-gray-50: #fafafa;
+  --db-gray-100: #f5f5f5;
+  --db-gray-200: #eeeeee;
+  --db-gray-300: #e0e0e0;
+  --db-gray-400: #bdbdbd;
+  --db-gray-500: #9e9e9e;
+  --db-gray-600: #757575;
+  --db-gray-700: #616161;
+  --db-gray-800: #424242;
+  --db-gray-900: #212121;
+  --db-header: #ffffff;
+  --db-sidebar: #ffffff;
+  --db-cell-hover: #f0f7ff;
+}
+
+.dark {
+  --db-bg: #1a1a1a;
+  --db-white: #242424;
+  --db-blue: #4d9cf8;
+  --db-blue-hover: #6db3ff;
+  --db-border: #333333;
+  --db-border-dark: #444444;
+  --db-gray-50: #1e1e1e;
+  --db-gray-100: #242424;
+  --db-gray-200: #2a2a2a;
+  --db-gray-300: #333333;
+  --db-gray-400: #666666;
+  --db-gray-500: #888888;
+  --db-gray-600: #aaaaaa;
+  --db-gray-700: #cccccc;
+  --db-gray-800: #dddddd;
+  --db-gray-900: #eeeeee;
+  --db-header: #242424;
+  --db-sidebar: #1e1e1e;
+  --db-cell-hover: #1e2a3a;
+}
+
+/* ================================================================
+   Base styles
+   ================================================================ */
+
+html {
+  scroll-behavior: smooth;
+  font-size: 15px;
+}
+
+body {
+  background: var(--db-bg);
+  color: var(--db-gray-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ================================================================
+   Scroll-triggered animations
+   ================================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.animate-in--visible {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* About hero stagger (keep backward compat) */
+.about-hero {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.about-hero--visible {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+.about-hero--visible .stat-card:nth-child(1) { animation: fadeInUp 0.4s ease-out 0.08s forwards; opacity: 0; }
+.about-hero--visible .stat-card:nth-child(2) { animation: fadeInUp 0.4s ease-out 0.16s forwards; opacity: 0; }
+.about-hero--visible .stat-card:nth-child(3) { animation: fadeInUp 0.4s ease-out 0.24s forwards; opacity: 0; }
+.about-hero--visible .stat-card:nth-child(4) { animation: fadeInUp 0.4s ease-out 0.32s forwards; opacity: 0; }
+
+/* ---- Badge scroll (step-wise left-to-right) ---- */
+@keyframes badge-scroll-step {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Container for the scrolling badge strip */
+.badge-scroll-mask {
+  container-type: inline-size;
+  width: 100%;
+  padding: 0.75rem 0;
+}
+
+/* Each badge card - equal width so all cards are uniform */
+.badge-scroll-item {
+  width: calc((100cqw - 4 * 1.25rem) / 5);
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+/* Fixed-height image area so all cards align vertically */
+.badge-img-area {
+  height: 180px;
+  position: relative;
+}
+
+/* Fixed-height caption so all labels are uniform */
+.badge-caption {
+  height: 48px;
+  overflow: hidden;
+}
+
+.badge-scroll-track {
+  will-change: transform;
+}
+
+/* Responsive: show fewer badges on smaller screens */
+@container (max-width: 700px) {
+  .badge-scroll-item {
+    width: calc((100cqw - 2 * 1.25rem) / 3);
+  }
+  .badge-img-area { height: 130px; }
+  .badge-caption  { height: 42px; font-size: 12px; }
+}
+@container (max-width: 420px) {
+  .badge-scroll-item {
+    width: calc((100cqw - 1.25rem) / 2);
+  }
+  .badge-img-area { height: 110px; }
+}
+
+/* ================================================================
+   Section headings
+   ================================================================ */
+
+.section-heading {
+  color: var(--db-gray-900);
+  letter-spacing: -0.02em;
+}
+
+/* ================================================================
+   Notebook cell
+   ================================================================ */
+
+.notebook-cell {
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+.notebook-cell:hover {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+.dark .notebook-cell:hover {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+.notebook-cell:hover .cell-gutter-icons {
+  opacity: 1;
+}
+.cell-gutter-icons {
+  opacity: 0.3;
+  transition: opacity 0.15s;
+}
+
+/* Gutter: highlight run-button zone on every cell */
+.cell-gutter {
+  border-left: 3px solid var(--db-border);
+}
+.notebook-cell:hover .cell-gutter {
+  border-left-color: var(--db-blue);
+}
+.cell-gutter .cell-run-btn {
+  flex-shrink: 0;
+}
+
+@keyframes run-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.run-button-spinner {
+  animation: run-button-spin 0.7s linear infinite;
+}
+
+/* ================================================================
+   Databricks table
+   ================================================================ */
+
+.db-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.db-table thead th {
+  background: var(--db-gray-50);
+  border-bottom: 2px solid var(--db-border);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--db-gray-900);
+  white-space: nowrap;
+  font-size: 14px;
+}
+.db-table tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--db-border);
+  color: var(--db-gray-700);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: background-color 0.15s ease;
+}
+.db-table tbody tr:hover {
+  background: var(--db-cell-hover);
+}
+.db-table .row-num {
+  color: var(--db-gray-500);
+  text-align: right;
+  padding-right: 10px;
+  font-size: 13px;
+  width: 40px;
+  min-width: 40px;
+}
+.db-table th.col-header {
+  cursor: default;
+}
+.db-table .col-type {
+  color: var(--db-gray-500);
+  font-size: 11px;
+  margin-right: 4px;
+}
+
+/* ================================================================
+   See performance link
+   ================================================================ */
+
+.see-perf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--db-blue);
+  font-size: 14px;
+  padding: 6px 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.see-perf-btn:hover {
+  text-decoration: underline;
+}
+
+/* ================================================================
+   Run all pulse
+   ================================================================ */
+
+@keyframes run-pulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: inset 0 0 0 2px rgba(27, 115, 232, 0.2); }
+}
+.run-all-pulse > section {
+  animation: run-pulse 0.5s ease;
+}
+.run-all-pulse > section:nth-child(1) { animation-delay: 0s; }
+.run-all-pulse > section:nth-child(2) { animation-delay: 0.08s; }
+.run-all-pulse > section:nth-child(3) { animation-delay: 0.16s; }
+.run-all-pulse > section:nth-child(4) { animation-delay: 0.24s; }
+.run-all-pulse > section:nth-child(5) { animation-delay: 0.32s; }
+.run-all-pulse > section:nth-child(6) { animation-delay: 0.4s; }
+.run-all-pulse > section:nth-child(7) { animation-delay: 0.48s; }
+.run-all-pulse > section:nth-child(8) { animation-delay: 0.56s; }
+.run-all-pulse > section:nth-child(9) { animation-delay: 0.64s; }
+.run-all-pulse > section:nth-child(n + 10) { animation-delay: 0.72s; }
+
+/* ================================================================
+   Markdown (readable body text)
+   ================================================================ */
+
+.md-content h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--db-gray-900);
+  line-height: 1.3;
+}
+.md-content h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--db-gray-900);
+}
+.md-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 0.35rem;
+  color: var(--db-gray-800);
+}
+.md-content p {
+  margin: 0.5rem 0;
+  line-height: 1.65;
+  color: var(--db-gray-700);
+  font-size: 1rem;
+}
+.md-content ul,
+.md-content ol {
+  margin: 0.5rem 0 0.5rem 1.25rem;
+  line-height: 1.6;
+}
+.md-content li {
+  margin: 0.35rem 0;
+  color: var(--db-gray-700);
+}
+.md-content a {
+  color: var(--db-blue);
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+.md-content a:hover {
+  opacity: 0.8;
+}
+.md-content strong {
+  font-weight: 600;
+  color: var(--db-gray-900);
+}
+.md-content em {
+  color: var(--db-gray-600);
+}
+
+/* ================================================================
+   Global transitions & polish
+   ================================================================ */
+
+a,
+button {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+/* Smooth dark mode transition for surfaces */
+header, aside, footer, .notebook-cell, .db-table {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Cluster dot pulse */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.cluster-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Header scroll shadow */
+.header-scrolled {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+}
+.dark .header-scrolled {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ================================================================
+   Scrollbar
+   ================================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--db-gray-400);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--db-gray-100);
+}
+
+/* ================================================================
+   Mobile touch targets
+   ================================================================ */
+
+@media (max-width: 768px) {
+  button,
+  a[role="button"],
+  .touch-target {
+    min-height: 44px;
+  }
+}
+
+/* ================================================================
+   Sidebar responsive defaults
+   ================================================================ */
+
+/* Smooth main content shift when sidebar toggles */
+main {
+  transition: padding-left 200ms ease;
+}
+
+/* Sidebar transition (includes dark-mode surface transitions) */
+.sidebar-rail {
+  transition: width 200ms ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+/* Sidebar label fade */
+.sidebar-label {
+  transition: opacity 150ms ease, transform 150ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
