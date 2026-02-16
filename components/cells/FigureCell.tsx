@@ -149,7 +149,7 @@ export default function FigureCell({
                     key={`${img.src}-${i}`}
                     className="w-full shrink-0 px-1.5 first:pl-0 last:pr-0 sm:w-1/2"
                   >
-                    <div className="overflow-hidden rounded-lg border border-db-border bg-db-gray-50 dark:bg-db-gray-800">
+                    <div className="overflow-hidden rounded-lg border border-db-border bg-db-gray-50">
                       <div className="relative aspect-square w-full p-3">
                         <Image
                           src={img.src}
@@ -161,7 +161,7 @@ export default function FigureCell({
                         />
                       </div>
                       {img.caption && (
-                        <div className="border-t border-db-border bg-db-white px-3 py-2 text-center text-xs font-medium text-db-gray-700 dark:text-db-gray-300">
+                        <div className="border-t border-db-border bg-db-white px-3 py-2 text-center text-xs font-medium text-db-gray-700">
                           {img.caption}
                         </div>
                       )}
@@ -209,7 +209,7 @@ export default function FigureCell({
                       className={`!min-h-0 h-1.5 rounded-full transition-all duration-300 ${
                         i === currentSlide
                           ? "w-5 bg-db-blue"
-                          : "w-1.5 bg-db-gray-300 dark:bg-db-gray-600 hover:bg-db-gray-400"
+                          : "w-1.5 bg-db-gray-300 hover:bg-db-gray-400"
                       }`}
                       aria-label={`Go to position ${i + 1}`}
                     />
@@ -218,14 +218,16 @@ export default function FigureCell({
               )}
             </div>
           ) : scrollAnimation ? (
-            <div className="badge-scroll-mask overflow-hidden">
+            <div className="badge-scroll-mask flex justify-center">
               <div
-                className="badge-scroll-track flex w-max gap-5"
+                className="badge-scroll-track flex gap-5"
                 style={{
-                  animation: `badge-scroll-step ${12 + images.length * 2}s steps(${images.length}) infinite`,
+                  animation: images.length > 4
+                    ? `badge-scroll-step ${images.length * 3}s steps(${images.length}) infinite`
+                    : undefined,
                 }}
               >
-                {[...images, ...images].map((img, i) => {
+                {(images.length > 4 ? [...images, ...images] : images).map((img, i) => {
                   const fig = (
                     <figure className="badge-scroll-item shrink-0 overflow-hidden rounded-2xl border border-db-border bg-db-white shadow-sm transition-all duration-200 hover:border-db-blue/40 hover:shadow-lg hover:-translate-y-0.5">
                       <div className="badge-img-area relative w-full bg-db-white flex items-center justify-center p-3">
@@ -276,8 +278,8 @@ export default function FigureCell({
           >
             {images.map((img, i) => {
               const fig = (
-                <figure className="overflow-hidden rounded-lg border border-db-border bg-white transition hover:border-db-blue/50 hover:shadow-sm">
-                  <div className="relative aspect-square w-full bg-white p-3">
+                <figure className="overflow-hidden rounded-lg border border-db-border bg-db-white transition hover:border-db-blue/50 hover:shadow-sm">
+                  <div className="relative aspect-square w-full bg-db-white p-3">
                     <Image
                       src={img.src}
                       alt={img.alt}

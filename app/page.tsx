@@ -63,7 +63,7 @@ export default function Home() {
           {/* ABOUT */}
           <AnimateOnScroll>
             <section id="about" className="mb-6 scroll-mt-20">
-              <SectionHeading title="About" />
+              <SectionHeading title="About" first />
               <AboutCell
                 name="DEEP CONTRACTOR"
                 subtitle="AI Consultant, Engineer & Architect"
@@ -78,7 +78,7 @@ export default function Home() {
           {/* BADGES */}
           <AnimateOnScroll delay={80}>
             <section id="badges" className="mb-6 scroll-mt-20">
-              <SectionHeading title="Certifications & Badges" />
+              <SectionHeading title="Professional Badges" />
               <FigureCell
                 cellNumber={2}
                 timestamp="11:32 AM"
@@ -94,7 +94,7 @@ export default function Home() {
                 showPerformance
                 performanceExpanded={expandAll}
                 onPerformanceToggle={onToggle}
-                performanceContent={`${badges.length} certifications & badges loaded`}
+                performanceContent={`${badges.length} professional badges loaded`}
               />
             </section>
           </AnimateOnScroll>

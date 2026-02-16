@@ -39,7 +39,7 @@ export default function EducationCell({
 
             <div className="flex items-start gap-3 p-4">
               {row.logo && (
-                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-db-border bg-white shadow-sm transition-transform duration-200 group-hover:scale-105 dark:bg-db-gray-100">
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-db-border bg-db-white shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <Image
                     src={row.logo}
                     alt={row.school}
@@ -55,7 +55,7 @@ export default function EducationCell({
                 </h4>
                 <p className="mt-0.5 text-[15px] text-db-gray-600">{row.school}</p>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full bg-db-gray-100 px-2.5 py-0.5 text-xs font-medium text-db-gray-600 dark:bg-db-gray-200 dark:text-db-gray-700">
+                  <span className="inline-flex items-center rounded-full bg-db-gray-200 px-2.5 py-0.5 text-xs font-medium text-db-gray-600">
                     {row.year}
                   </span>
                   {row.field && (

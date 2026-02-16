@@ -110,7 +110,7 @@ body {
 .about-hero--visible .stat-card:nth-child(3) { animation: fadeInUp 0.4s ease-out 0.24s forwards; opacity: 0; }
 .about-hero--visible .stat-card:nth-child(4) { animation: fadeInUp 0.4s ease-out 0.32s forwards; opacity: 0; }
 
-/* ---- Badge scroll (step-wise left-to-right) ---- */
+/* ---- Badge scroll (step-by-step) ---- */
 @keyframes badge-scroll-step {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -121,12 +121,23 @@ body {
   container-type: inline-size;
   width: 100%;
   padding: 0.75rem 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.badge-scroll-mask::-webkit-scrollbar {
+  height: 4px;
+}
+.badge-scroll-mask::-webkit-scrollbar-thumb {
+  background: var(--db-gray-300);
+  border-radius: 2px;
 }
 
-/* Each badge card - equal width so all cards are uniform */
+/* Each badge card - sized so ~4 fit in the visible area */
 .badge-scroll-item {
-  width: calc((100cqw - 4 * 1.25rem) / 5);
-  min-width: 140px;
+  width: calc((100cqw - 3 * 1.25rem) / 4);
+  min-width: 160px;
+  max-width: 220px;
   flex-shrink: 0;
 }
 
@@ -144,21 +155,23 @@ body {
 
 .badge-scroll-track {
   will-change: transform;
+  animation-play-state: running;
 }
 
-/* Responsive: show fewer badges on smaller screens */
+/* Pause auto-scroll on hover so user can interact */
+.badge-scroll-mask:hover .badge-scroll-track {
+  animation-play-state: paused;
+}
+
+/* Responsive: slightly smaller cards on smaller screens */
 @container (max-width: 700px) {
-  .badge-scroll-item {
-    width: calc((100cqw - 2 * 1.25rem) / 3);
-  }
-  .badge-img-area { height: 130px; }
+  .badge-scroll-item { width: 170px; min-width: 140px; }
+  .badge-img-area { height: 140px; }
   .badge-caption  { height: 42px; font-size: 12px; }
 }
 @container (max-width: 420px) {
-  .badge-scroll-item {
-    width: calc((100cqw - 1.25rem) / 2);
-  }
-  .badge-img-area { height: 110px; }
+  .badge-scroll-item { width: 150px; min-width: 130px; }
+  .badge-img-area { height: 120px; }
 }
 
 /* ================================================================

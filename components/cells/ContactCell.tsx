@@ -6,6 +6,7 @@ interface ContactCellProps {
   email: string;
   location: string;
   linkedIn: string;
+  calendly?: string;
   cellNumber?: number;
   timestamp?: string;
 }
@@ -14,6 +15,7 @@ export default function ContactCell({
   email,
   location,
   linkedIn,
+  calendly = "https://calendly.com/deep-contractor88",
   cellNumber = 11,
   timestamp = "11:36 AM",
 }: ContactCellProps) {
@@ -27,7 +29,7 @@ export default function ContactCell({
         <div className="grid gap-3 sm:grid-cols-2">
           <a
             href={`mailto:${email}`}
-            className="group flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-50 p-3 transition-all duration-200 hover:border-db-blue/40 hover:bg-db-cell-hover hover:shadow-md"
+            className="group flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-100 p-3 transition-all duration-200 hover:border-db-blue/40 hover:bg-db-cell-hover hover:shadow-md"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-db-blue/10 text-db-blue transition-transform duration-200 group-hover:scale-110">
               <MailIcon className="h-5 w-5" />
@@ -46,7 +48,7 @@ export default function ContactCell({
             href={linkedIn}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-50 p-3 transition-all duration-200 hover:border-db-blue/40 hover:bg-db-cell-hover hover:shadow-md"
+            className="group flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-100 p-3 transition-all duration-200 hover:border-db-blue/40 hover:bg-db-cell-hover hover:shadow-md"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-db-blue/10 text-db-blue transition-transform duration-200 group-hover:scale-110">
               <LinkedInIcon className="h-5 w-5" />
@@ -61,7 +63,26 @@ export default function ContactCell({
             </div>
           </a>
 
-          <div className="flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-50 p-3 sm:col-span-2">
+          <a
+            href={calendly}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-100 p-3 transition-all duration-200 hover:border-emerald-400/50 hover:bg-db-cell-hover hover:shadow-md"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 transition-transform duration-200 group-hover:scale-110">
+              <CalendarIcon className="h-5 w-5" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-xs font-medium uppercase tracking-wide text-db-gray-500">
+                Schedule a Meeting
+              </p>
+              <p className="text-[15px] font-medium text-db-gray-900">
+                Book a time on Calendly
+              </p>
+            </div>
+          </a>
+
+          <div className="flex items-center gap-3 rounded-lg border border-db-border bg-db-gray-100 p-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-db-gray-200 text-db-gray-600">
               <LocationIcon className="h-5 w-5" />
             </span>
@@ -94,6 +115,15 @@ function LinkedInIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+function CalendarIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="18" rx="2" />
+      <path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
     </svg>
   );
 }

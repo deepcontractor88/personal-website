@@ -21,7 +21,7 @@ export default function IndustriesCell({
     <Cell cellNumber={cellNumber} timestamp={timestamp} duration="<1s" executed>
       <div>
         {/* Section header */}
-        <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-db-gray-500 dark:text-db-gray-400">
+        <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-db-gray-500">
           Industry Experience
         </p>
 
@@ -30,7 +30,7 @@ export default function IndustriesCell({
           {industries.map((ind) => (
             <div
               key={ind.name}
-              className="group flex flex-col items-center gap-3 rounded-xl border border-db-border bg-db-white px-4 py-6 transition-all duration-200 hover:border-db-border-dark hover:shadow-lg dark:bg-db-gray-800/30"
+              className="group flex flex-col items-center gap-3 rounded-xl border border-db-border bg-db-white px-4 py-6 transition-all duration-200 hover:border-db-border-dark hover:shadow-lg"
             >
               <div className="relative h-16 w-16 sm:h-20 sm:w-20">
                 <Image
@@ -41,7 +41,7 @@ export default function IndustriesCell({
                   sizes="80px"
                 />
               </div>
-              <span className="text-center text-xs font-semibold leading-tight text-db-gray-800 dark:text-db-gray-200 sm:text-sm">
+              <span className="text-center text-xs font-semibold leading-tight text-db-gray-800 sm:text-sm">
                 {ind.name}
               </span>
             </div>

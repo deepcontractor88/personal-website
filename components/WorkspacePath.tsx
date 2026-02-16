@@ -21,8 +21,8 @@ export default function WorkspacePath() {
           <span
             className={
               seg.active
-                ? "font-semibold text-db-gray-800 dark:text-db-gray-200"
-                : "text-db-gray-500 hover:text-db-gray-700 dark:text-db-gray-400 dark:hover:text-db-gray-300"
+                ? "font-semibold text-db-gray-800"
+                : "text-db-gray-500 hover:text-db-gray-700"
             }
           >
             {seg.label}

@@ -4,11 +4,11 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-db-border bg-white dark:bg-[var(--db-header)] ml-0 lg:ml-[var(--db-sidebar-w)]">
+    <footer className="border-t border-db-border bg-db-white ml-0 lg:ml-[var(--db-sidebar-w)]">
       <div className="mx-auto max-w-6xl px-4 py-6 md:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           {/* Left: copyright */}
-          <p className="text-sm text-db-gray-500 dark:text-db-gray-400">
+          <p className="text-sm text-db-gray-500">
             &copy; {currentYear} Deep Contractor. All rights reserved.
           </p>
 
@@ -18,7 +18,7 @@ export default function Footer() {
               href="https://linkedin.com/in/deepcontractor"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-db-gray-400 transition-colors hover:text-db-blue dark:text-db-gray-500 dark:hover:text-db-blue"
+              className="text-db-gray-400 transition-colors hover:text-db-blue"
               aria-label="LinkedIn"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -27,7 +27,7 @@ export default function Footer() {
             </a>
             <a
               href="mailto:deep.contractor88@gmail.com"
-              className="text-db-gray-400 transition-colors hover:text-db-blue dark:text-db-gray-500 dark:hover:text-db-blue"
+              className="text-db-gray-400 transition-colors hover:text-db-blue"
               aria-label="Email"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -38,7 +38,7 @@ export default function Footer() {
               href="https://kaggle.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-db-gray-400 transition-colors hover:text-db-blue dark:text-db-gray-500 dark:hover:text-db-blue"
+              className="text-db-gray-400 transition-colors hover:text-db-blue"
               aria-label="Kaggle"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -48,8 +48,8 @@ export default function Footer() {
           </div>
 
           {/* Right: built with */}
-          <p className="text-xs text-db-gray-400 dark:text-db-gray-500">
-            Built with Next.js &middot; Styled like Databricks
+          <p className="text-xs text-db-gray-400">
+            Built with Next.js &middot; Styled as a Data Science Notebook
           </p>
         </div>
       </div>

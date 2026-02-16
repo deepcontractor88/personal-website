@@ -63,11 +63,11 @@ const CATEGORY_COLORS: Record<
 };
 
 const DEFAULT_COLOR = {
-  bg: "bg-db-gray-50 dark:bg-db-gray-800",
-  text: "text-db-gray-700 dark:text-db-gray-300",
-  ring: "ring-db-gray-200 dark:ring-db-gray-700",
+  bg: "bg-db-gray-50",
+  text: "text-db-gray-700",
+  ring: "ring-db-gray-200",
   accent: "border-db-gray-400",
-  iconBg: "bg-db-gray-100 dark:bg-db-gray-800",
+  iconBg: "bg-db-gray-100",
 };
 
 /* Category icons */
@@ -160,7 +160,7 @@ export default function SkillsCell({
                 key={g.label}
                 type="button"
                 onClick={() => setExpandedIdx(isExpanded ? null : idx)}
-                className={`group flex flex-col text-left rounded-xl border border-db-border transition-all duration-200 overflow-hidden
+                className={`group flex flex-col text-left rounded-xl border border-db-border bg-db-white transition-all duration-200 overflow-hidden
                   ${isExpanded ? "ring-1 " + color.ring + " border-transparent shadow-md" : "hover:border-db-border-dark hover:shadow-sm"}
                 `}
               >
@@ -173,10 +173,10 @@ export default function SkillsCell({
 
                   {/* Label + count */}
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-db-gray-900 dark:text-db-gray-100">
+                    <p className="text-sm font-semibold text-db-gray-900">
                       {g.label}
                     </p>
-                    <p className="text-xs text-db-gray-500 dark:text-db-gray-400">
+                    <p className="text-xs text-db-gray-500">
                       {skills.length} skills
                     </p>
                   </div>
@@ -198,7 +198,7 @@ export default function SkillsCell({
                 {/* Compact preview (collapsed) */}
                 {!isExpanded && (
                   <div className="px-4 pb-3 -mt-1">
-                    <p className="text-xs leading-relaxed text-db-gray-500 dark:text-db-gray-400 line-clamp-2">
+                    <p className="text-xs leading-relaxed text-db-gray-500 line-clamp-2">
                       {skills.join(" · ")}
                     </p>
                   </div>

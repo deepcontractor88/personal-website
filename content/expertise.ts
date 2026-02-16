@@ -4,7 +4,8 @@ export interface ExpertiseArea {
   title: string;
   subtitle: string;
   summary: string;
-  icon: string; // icon identifier for inline SVG
+  icon: string; // icon identifier for inline SVG (fallback)
+  image?: string; // path to image in /public
   highlights: string[];
   color: {
     accent: string; // border / icon accent
@@ -21,6 +22,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     summary:
       "Building production-grade agentic AI systems including RAG pipelines, multi-agent orchestration, tool-calling agents, and autonomous workflows with evaluation and guardrails.",
     icon: "agent",
+    image: "/images/expertise/agent.png",
     highlights: [
       "RAG Pipelines",
       "Multi-Agent",
@@ -41,6 +43,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     summary:
       "Designing end-to-end MLOps and LLMOps architectures on Databricks Lakehouse — experiment tracking, feature stores, model serving, monitoring, and governance via Unity Catalog.",
     icon: "platform",
+    image: "/images/expertise/platform.png",
     highlights: [
       "MLOps",
       "LLMOps",
@@ -61,6 +64,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     summary:
       "Leading large-scale migrations of legacy ML workloads (SageMaker, Azure ML, on-prem) to Databricks — re-platforming pipelines, model registries, and inference endpoints with zero downtime.",
     icon: "migration",
+    image: "/images/expertise/migration.png",
     highlights: [
       "SageMaker",
       "Azure ML",
@@ -80,6 +84,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     summary:
       "Translating complex business requirements into actionable technical blueprints — discovery workshops, POCs, and architecture proposals that accelerate deal closure.",
     icon: "presales",
+    image: "/images/expertise/presales.png",
     highlights: [
       "Architecture Design",
       "POCs",
@@ -99,6 +104,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     summary:
       "Embedding directly with customer teams to build, ship, and iterate on AI solutions — bridging product vision and production-grade implementation.",
     icon: "consulting",
+    image: "/images/expertise/consulting.png",
     highlights: [
       "Customer-Embedded",
       "End-to-End Delivery",

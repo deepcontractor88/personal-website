@@ -126,7 +126,7 @@ export default function TimelineCell({
             return (
               <div
                 key={`${item.name}-${item.year}`}
-                className="group flex items-center gap-3.5 rounded-xl border border-db-border bg-db-white px-4 py-3.5 transition-all duration-200 hover:border-db-border-dark hover:shadow-md dark:bg-db-gray-800/30"
+                className="group flex items-center gap-3.5 rounded-xl border border-db-border bg-db-white px-4 py-3.5 transition-all duration-200 hover:border-db-border-dark hover:shadow-md"
               >
                 {/* Image or icon */}
                 {item.image ? (
@@ -150,15 +150,15 @@ export default function TimelineCell({
                 {/* Title + detail + year */}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-[14px] font-semibold leading-snug text-db-gray-900 dark:text-db-gray-100 sm:text-[15px]">
+                    <p className="text-[14px] font-semibold leading-snug text-db-gray-900 sm:text-[15px]">
                       {item.name}
                     </p>
-                    <span className="mt-0.5 shrink-0 rounded-md bg-db-gray-100 px-1.5 py-0.5 text-2xs font-medium tabular-nums text-db-gray-500 dark:bg-db-gray-800 dark:text-db-gray-400">
+                    <span className="mt-0.5 shrink-0 rounded-md bg-db-gray-200 px-1.5 py-0.5 text-2xs font-medium tabular-nums text-db-gray-600">
                       {item.year}
                     </span>
                   </div>
                   {item.detail && (
-                    <p className="mt-0.5 text-[13px] leading-relaxed text-db-gray-500 dark:text-db-gray-400 sm:text-sm">
+                    <p className="mt-0.5 text-[13px] leading-relaxed text-db-gray-500 sm:text-sm">
                       {item.detail}
                     </p>
                   )}

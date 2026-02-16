@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Cell from "./Cell";
 import type { ExpertiseArea } from "@/content/expertise";
 
@@ -102,26 +103,38 @@ export default function ExpertiseCell({
               onClick={() => setExpandedIdx(isExpanded ? null : idx)}
               className={`group relative flex flex-col overflow-hidden rounded-xl border-l-[3px] text-left transition-all duration-200
                 ${area.color.accent}
-                ${isExpanded ? `${area.color.bg} shadow-md` : "bg-db-white hover:shadow-md dark:bg-db-gray-800/30"}
+                ${isExpanded ? `${area.color.bg} shadow-md` : "bg-db-white hover:shadow-md"}
                 border-r border-t border-b border-r-db-border border-t-db-border border-b-db-border
                 hover:border-r-db-border-dark hover:border-t-db-border-dark hover:border-b-db-border-dark
               `}
             >
               {/* Card header */}
               <div className="flex items-start gap-3 px-4 pt-4 pb-2">
-                <div
-                  className={`flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors duration-200
-                    ${area.color.bg}
-                  `}
-                >
-                  <ExpertiseIcon icon={area.icon} className={area.color.tagText} />
-                </div>
+                {area.image ? (
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg sm:h-11 sm:w-11">
+                    <Image
+                      src={area.image}
+                      alt={area.title}
+                      fill
+                      className="object-contain"
+                      sizes="44px"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={`flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors duration-200
+                      ${area.color.bg}
+                    `}
+                  >
+                    <ExpertiseIcon icon={area.icon} className={area.color.tagText} />
+                  </div>
+                )}
 
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-sm font-bold text-db-gray-900 dark:text-db-gray-100 sm:text-[15px] leading-tight">
+                  <h3 className="text-sm font-bold text-db-gray-900 sm:text-[15px] leading-tight">
                     {area.title}
                   </h3>
-                  <p className="mt-0.5 text-xs text-db-gray-500 dark:text-db-gray-400 leading-snug">
+                  <p className="mt-0.5 text-xs text-db-gray-500 leading-snug">
                     {area.subtitle}
                   </p>
                 </div>
@@ -148,7 +161,7 @@ export default function ExpertiseCell({
                 }`}
               >
                 <div className="overflow-hidden">
-                  <p className="border-t border-db-border/50 mx-4 pt-3 pb-4 text-[13px] leading-relaxed text-db-gray-600 dark:text-db-gray-400">
+                  <p className="border-t border-db-border/50 mx-4 pt-3 pb-4 text-[13px] leading-relaxed text-db-gray-600">
                     {area.summary}
                   </p>
                 </div>
