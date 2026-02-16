@@ -46,11 +46,11 @@ export const metadata: Metadata = {
 };
 
 /* Script to set dark class before paint (prevents flash) */
+/* Only apply dark mode if user explicitly toggled it; default to light */
 const darkModeScript = `
   (function() {
     try {
-      var stored = localStorage.getItem('theme');
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
       }
     } catch(e) {}
