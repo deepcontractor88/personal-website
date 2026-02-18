@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const SECTIONS = [
-  { id: "about", label: "About", icon: "user" },
+  { id: "about", label: "About Me", icon: "user" },
   { id: "badges", label: "Badges", icon: "award" },
   { id: "experience", label: "Experience", icon: "briefcase" },
   { id: "expertise", label: "Expertise", icon: "lightbulb" },

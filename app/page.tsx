@@ -17,7 +17,6 @@ import SkillsCell from "@/components/cells/SkillsCell";
 import ExpertiseCell from "@/components/cells/ExpertiseCell";
 import IndustriesCell from "@/components/cells/IndustriesCell";
 import SectionHeading from "@/components/SectionHeading";
-import AddCellDivider from "@/components/AddCellDivider";
 import { experienceDetails } from "@/content/experience";
 import { badges } from "@/content/badges";
 import { expertiseAreas } from "@/content/expertise";
@@ -63,7 +62,7 @@ export default function Home() {
           {/* ABOUT */}
           <AnimateOnScroll>
             <section id="about" className="mb-6 scroll-mt-20">
-              <SectionHeading title="About" first />
+              <SectionHeading title="About Me" first />
               <AboutCell
                 name="DEEP CONTRACTOR"
                 subtitle="AI Consultant, Engineer & Architect"
@@ -85,6 +84,7 @@ export default function Home() {
                 duration={"<1s"}
                 images={badges.map((b) => ({
                   src: b.imageUrl,
+                  srcDark: b.darkModeImageUrl,
                   alt: b.name,
                   caption: b.label ?? b.name,
                   link: b.link,
@@ -98,8 +98,6 @@ export default function Home() {
               />
             </section>
           </AnimateOnScroll>
-
-          <AddCellDivider />
 
           {/* EXPERIENCE */}
           <AnimateOnScroll delay={80}>
@@ -137,8 +135,6 @@ export default function Home() {
             </section>
           </AnimateOnScroll>
 
-          <AddCellDivider />
-
           {/* SPECIALIZED TECHNICAL EXPERTISE */}
           <AnimateOnScroll delay={80}>
             <section id="expertise" className="mb-4 scroll-mt-20">
@@ -162,8 +158,6 @@ export default function Home() {
               />
             </section>
           </AnimateOnScroll>
-
-          <AddCellDivider />
 
           {/* Certifications */}
           <AnimateOnScroll delay={80}>
@@ -213,8 +207,6 @@ export default function Home() {
               />
             </section>
           </AnimateOnScroll>
-
-          <AddCellDivider />
 
           {/* EDUCATION */}
           <AnimateOnScroll delay={80}>

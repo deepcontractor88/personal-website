@@ -6,7 +6,13 @@ import Cell from "./Cell";
 
 interface FigureCellProps {
   children?: ReactNode;
-  images?: { src: string; alt: string; caption?: string; link?: string }[];
+  images?: {
+    src: string;
+    srcDark?: string;
+    alt: string;
+    caption?: string;
+    link?: string;
+  }[];
   cellNumber?: number;
   timestamp?: string;
   duration?: string;
@@ -47,6 +53,30 @@ export default function FigureCell({
   const [perView, setPerView] = useState(2);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  /* Circular badge carousel state */
+  const [badgeQueue, setBadgeQueue] = useState<number[]>(images.map((_, i) => i));
+  const [isSliding, setIsSliding] = useState(false);
+  const badgePausedRef = useRef(false);
+  const badgeTrackRef = useRef<HTMLDivElement>(null);
+  const shiftRef = useRef(0);
+  const [isDark, setIsDark] = useState(false);
+
+  /* Sync dark mode from document class */
+  useEffect(() => {
+    const el = document.documentElement;
+    const update = () => setIsDark(el.classList.contains("dark"));
+    update();
+    const obs = new MutationObserver(update);
+    obs.observe(el, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
+
+  const getImageSrc = useCallback(
+    (img: { src: string; srcDark?: string }) =>
+      isDark && img.srcDark ? img.srcDark : img.src,
+    [isDark],
+  );
+
   /* Track viewport for 1-per-view (mobile) vs 2-per-view (sm+) */
   useEffect(() => {
     if (!slideshow) return;
@@ -81,6 +111,43 @@ export default function FigureCell({
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [slideshow, paused, slideshowInterval, maxSlide, images.length]);
+
+  /* Reset badge queue when images change */
+  useEffect(() => {
+    if (scrollAnimation) {
+      setBadgeQueue(images.map((_, i) => i));
+    }
+  }, [scrollAnimation, images.length]);
+
+  /* Auto-rotate badge carousel every 3s */
+  useEffect(() => {
+    if (!scrollAnimation || images.length <= 4) return;
+    const id = setInterval(() => {
+      if (badgePausedRef.current) return;
+      const track = badgeTrackRef.current;
+      if (track?.firstElementChild) {
+        const gap = parseFloat(getComputedStyle(track).gap) || 20;
+        shiftRef.current = (track.firstElementChild as HTMLElement).offsetWidth + gap;
+      }
+      setIsSliding(true);
+    }, 3000);
+    return () => clearInterval(id);
+  }, [scrollAnimation, images.length]);
+
+  /* After slide transition: rotate queue and reset position instantly */
+  const handleBadgeSlideEnd = useCallback((e: React.TransitionEvent) => {
+    if (e.target !== e.currentTarget) return;
+    const track = badgeTrackRef.current;
+    if (!track) return;
+    track.style.transition = 'none';
+    setBadgeQueue(prev => [...prev.slice(1), prev[0]]);
+    setIsSliding(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (track) track.style.transition = '';
+      });
+    });
+  }, []);
 
   useEffect(() => {
     if (controlledExpanded === true) setUserHasToggled(false);
@@ -152,10 +219,10 @@ export default function FigureCell({
                     <div className="overflow-hidden rounded-lg border border-db-border bg-db-gray-50">
                       <div className="relative aspect-square w-full p-3">
                         <Image
-                          src={img.src}
+                          src={getImageSrc(img)}
                           alt={img.alt}
                           fill
-                          className="object-contain p-2"
+                          className={`object-contain p-2 ${isDark && img.srcDark ? "logo-no-bg" : ""}`}
                           sizes="(max-width: 640px) 90vw, 320px"
                           priority={i <= 1}
                         />
@@ -218,25 +285,32 @@ export default function FigureCell({
               )}
             </div>
           ) : scrollAnimation ? (
-            <div className="badge-scroll-mask flex justify-center">
+            <div
+              className={`badge-scroll-mask flex ${images.length <= 4 ? 'justify-center' : ''}`}
+              onMouseEnter={() => { badgePausedRef.current = true; }}
+              onMouseLeave={() => { badgePausedRef.current = false; }}
+            >
               <div
+                ref={badgeTrackRef}
                 className="badge-scroll-track flex gap-5"
                 style={{
-                  animation: images.length > 4
-                    ? `badge-scroll-step ${images.length * 3}s steps(${images.length}) infinite`
-                    : undefined,
+                  transition: isSliding ? 'transform 0.6s ease-in-out' : 'none',
+                  transform: isSliding ? `translateX(-${shiftRef.current}px)` : 'translateX(0)',
                 }}
+                onTransitionEnd={handleBadgeSlideEnd}
               >
-                {(images.length > 4 ? [...images, ...images] : images).map((img, i) => {
+                {(images.length > 4 ? badgeQueue : images.map((_, i) => i)).map((idx) => {
+                  const img = images[idx];
+                  if (!img) return null;
                   const fig = (
                     <figure className="badge-scroll-item shrink-0 overflow-hidden rounded-2xl border border-db-border bg-db-white shadow-sm transition-all duration-200 hover:border-db-blue/40 hover:shadow-lg hover:-translate-y-0.5">
                       <div className="badge-img-area relative w-full bg-db-white flex items-center justify-center p-3">
                         <Image
-                          src={img.src}
+                          src={getImageSrc(img)}
                           alt={img.alt}
                           fill
                           unoptimized
-                          className="object-contain p-3"
+                          className={`object-contain p-3 ${isDark && img.srcDark ? "logo-no-bg" : ""}`}
                           sizes="(min-width: 768px) 320px, 200px"
                         />
                       </div>
@@ -247,10 +321,9 @@ export default function FigureCell({
                       )}
                     </figure>
                   );
-                  const key = `${img.src}-${i}`;
                   return img.link ? (
                     <a
-                      key={key}
+                      key={`badge-${idx}`}
                       href={img.link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -259,7 +332,7 @@ export default function FigureCell({
                       {fig}
                     </a>
                   ) : (
-                    <div key={key} className="shrink-0">
+                    <div key={`badge-${idx}`} className="shrink-0">
                       {fig}
                     </div>
                   );
@@ -281,10 +354,10 @@ export default function FigureCell({
                 <figure className="overflow-hidden rounded-lg border border-db-border bg-db-white transition hover:border-db-blue/50 hover:shadow-sm">
                   <div className="relative aspect-square w-full bg-db-white p-3">
                     <Image
-                      src={img.src}
+                      src={getImageSrc(img)}
                       alt={img.alt}
                       fill
-                      className="object-contain p-2"
+                      className={`object-contain p-2 ${isDark && img.srcDark ? "logo-no-bg" : ""}`}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>

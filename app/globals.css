@@ -121,7 +121,16 @@ body {
   container-type: inline-size;
   width: 100%;
   padding: 0.75rem 0;
-  overflow: hidden;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.badge-scroll-mask::-webkit-scrollbar {
+  height: 4px;
+}
+.badge-scroll-mask::-webkit-scrollbar-thumb {
+  background: var(--db-gray-300);
+  border-radius: 2px;
 }
 
 /* Each badge card - sized so ~4 fit in the visible area */
@@ -147,6 +156,11 @@ body {
 .badge-scroll-track {
   will-change: transform;
   animation-play-state: running;
+}
+
+/* Dark-mode logo: blend out light/white background so logo appears on transparent */
+.logo-no-bg {
+  mix-blend-mode: lighten;
 }
 
 /* Pause auto-scroll on hover so user can interact */
