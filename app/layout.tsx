@@ -9,6 +9,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://deepcontractor.me"),
   title: "Deep Contractor | AI Consultant, Engineer & Architect",
   description:
     "AI Consultant, Engineer & Architect with 5+ years delivering GenAI, ML & MLOps on Databricks & Azure. Databricks Partner Champion, Kaggle Grandmaster.",
@@ -28,17 +29,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "https://deepcontractor.com",
+    url: "https://deepcontractor.me",
     title: "Deep Contractor | Data Science Consultant & AI Architect",
     description:
       "5+ years delivering production-grade GenAI, ML & MLOps. Databricks Partner Champion, Kaggle Grandmaster.",
     siteName: "Deep Contractor",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Deep Contractor – AI Consultant, Engineer & Architect",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Deep Contractor | Data Science Consultant & AI Architect",
     description:
       "5+ years delivering production-grade GenAI, ML & MLOps. Databricks Partner Champion, Kaggle Grandmaster.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
