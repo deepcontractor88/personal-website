@@ -64,6 +64,9 @@ export const metadata: Metadata = {
       "AI Consultant, Engineer & Architect – 5+ years delivering production-grade GenAI, ML & MLOps. Databricks Partner Champion, Kaggle Grandmaster.",
     images: ["/og-image.png"],
   },
+  verification: {
+    google: "v2QDWmH5F80fLArFwCI7Oy-78SKKdo3U52Eous-j4xM",
+  },
   robots: {
     index: true,
     follow: true,
