@@ -48,12 +48,21 @@ export const metadata: Metadata = {
     description:
       "AI Consultant, Engineer & Architect – 5+ years delivering production-grade GenAI, ML & MLOps. Databricks Partner Champion, Kaggle Grandmaster.",
     siteName: "Deep Contractor",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Deep Contractor – AI Consultant, Engineer & Architect",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Deep Contractor | AI Consultant, Engineer & Architect",
     description:
       "AI Consultant, Engineer & Architect – 5+ years delivering production-grade GenAI, ML & MLOps. Databricks Partner Champion, Kaggle Grandmaster.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -98,7 +107,7 @@ const jsonLd = {
       givenName: "Deep",
       familyName: "Contractor",
       url: "https://deepcontractor.me",
-      image: "https://deepcontractor.me/opengraph-image",
+      image: "https://deepcontractor.me/og-image.png",
       jobTitle: "Senior Consultant – Data Science",
       description:
         "AI Consultant, Engineer & Architect with 5+ years delivering production-grade GenAI, ML & MLOps on Databricks & Azure. Databricks Partner Solution Architect Champion (2025), Kaggle Grandmaster.",
