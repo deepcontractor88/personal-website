@@ -10,6 +10,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   metadataBase: new URL("https://deepcontractor.me"),
   title: "Deep Contractor | AI Consultant, Engineer & Architect",
   description:
@@ -88,6 +92,7 @@ const jsonLd = {
       "@id": "https://deepcontractor.me/#website",
       url: "https://deepcontractor.me",
       name: "Deep Contractor",
+      alternateName: ["Deep Contractor | AI Consultant, Engineer & Architect", "deepcontractor.me"],
       description:
         "Personal portfolio of Deep Contractor – AI Consultant, Engineer & Architect",
       publisher: { "@id": "https://deepcontractor.me/#person" },
