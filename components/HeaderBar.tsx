@@ -47,9 +47,9 @@ export default function HeaderBar({
     >
       {/* Left: title */}
       <div className="flex min-w-0 flex-1 items-center gap-2 pl-3 sm:pl-4 md:gap-3 md:pl-5">
-        <h1 className="truncate text-sm font-semibold text-db-gray-900 sm:text-base">
+        <span className="truncate text-sm font-semibold text-db-gray-900 sm:text-base" role="presentation">
           {title}
-        </h1>
+        </span>
         <span className="ml-1 hidden shrink-0 items-center gap-0.5 rounded bg-[color-mix(in_srgb,var(--db-blue)_12%,transparent)] px-2 py-1 text-xs font-medium text-db-blue md:flex">
           SQL
           <ChevronDown className="h-3.5 w-3.5" />
